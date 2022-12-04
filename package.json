@@ -1,0 +1,32 @@
+{
+  "name": "metis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boss-Codes/metis-ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Boss-Codes/metis-ts/issues"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.11.10",
+    "@types/signale": "^1.4.4",
+    "axios": "^1.2.0",
+    "eris": "^0.17.1",
+    "mongoose": "^6.7.5",
+    "signale": "^1.4.0",
+    "util": "^0.12.5"
+  }
+}
