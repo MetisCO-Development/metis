@@ -25,6 +25,7 @@
     "@types/signale": "^1.4.4",
     "axios": "^1.2.0",
     "eris": "^0.17.1",
+    "fs": "^0.0.1-security",
     "mongoose": "^6.7.5",
     "signale": "^1.4.0",
     "util": "^0.12.5"
