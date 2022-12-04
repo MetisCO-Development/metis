@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Metis = void 0;
 const eris_1 = require("eris");
 // save space for all Utils, Resolvers, Logger, Mongo models, types
-const Logger_1 = require("../src/Core/Structures/Logger");
+const Logger_1 = require("./Core/Structures/Logger");
 const fs_1 = __importDefault(require("fs"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const Command_1 = require("./Core/Structures/Command");
 const config = require("../config.json");
 class Metis extends eris_1.Client {
     constructor(token, options) {
@@ -16,7 +17,7 @@ class Metis extends eris_1.Client {
         this.logger = new Logger_1.Logger();
         this.version = 'v1.0.0';
         this.bevents = {};
-        // this.commands = new Collection(command)
+        this.commands = new eris_1.Collection(Command_1.Command);
         this.prefix = config.prefix;
         this.aPrefix = config.alphaPrefix;
         this.devPrefix = config.devPrefix;
@@ -46,13 +47,13 @@ class Metis extends eris_1.Client {
     init() {
         fs_1.default.readFile(`${__dirname}/metis.txt`, "utf8", function (err, data) {
             console.log(data);
-            metis.logger.success(metis.user.username, 'Commands Loaded!');
-            metis.logger.success(metis.user.username, 'Events Loaded');
+            metis.logger.success("Metis", 'Commands Loaded!');
+            metis.logger.success("Metis", 'Events Loaded');
         });
         this.loadCommands();
-        this.loadEvents();
-        this.connect();
+        // this.loadEvents()
         this.db();
+        this.connect();
     }
     loadEvents() {
         const eventfiles = fs_1.default.readdirSync(__dirname + "/Events");
@@ -71,21 +72,20 @@ class Metis extends eris_1.Client {
             this.on(Event.name, this.bevents[Event.name]);
         }
         catch (err) {
-            metis.logger.error(metis.user.username, err);
+            metis.logger.error("Metis", err);
         }
     }
     db() {
         mongoose_1.default.connect(config.mongoLogin, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useFindAndModify: true,
             dbName: 'metis',
         });
         mongoose_1.default.connection.on('error', () => {
-            this.logger.error(this.user.username, 'Failed to connect to MongoDB');
+            this.logger.error("Metis", 'Failed to connect to MongoDB');
         });
         mongoose_1.default.connection.on('open', () => {
-            this.logger.success(this.user.username, 'Connected to MongoDB');
+            this.logger.success("Metis", 'Connected to MongoDB');
         });
     }
     reloadEvent(eventname) {
@@ -98,6 +98,12 @@ class Metis extends eris_1.Client {
     }
     loadCommands() {
         fs_1.default.readdirSync(`${__dirname}/Modules`).forEach(dir => {
+            const commands = fs_1.default.readdirSync(`${__dirname}/Modules/${dir}`).filter(file => file.endsWith('js'));
+            for (let file of commands) {
+                let pull = require(`${__dirname}/Modules/${dir}/${file}`);
+                let CmdClass = new pull.cmd;
+                this.commands.add(CmdClass);
+            }
         });
     }
 }

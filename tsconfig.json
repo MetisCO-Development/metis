@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "watch": true,
-    "lib": ["dom", "es2018"],
+    "lib": ["dom", "es2017"],
     "module": "commonjs",
     "outDir": "build",
     "allowJs": true,

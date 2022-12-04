@@ -1,16 +1,16 @@
 import {Client, ClientOptions, Collection} from "eris"; 
 // save space for all Utils, Resolvers, Logger, Mongo models, types
-import {Logger} from "../src/Core/Structures/Logger"; 
+import {Logger} from "./Core/Structures/Logger"; 
 import {default as fs} from "fs"; 
 import mongoose, { ConnectOptions } from "mongoose";
-import { receiveMessageOnPort } from "worker_threads";
+import {Command} from "./Core/Structures/Command"; 
 const config = require("../config.json"); 
 
 export class Metis extends Client { 
     logger: Logger;
     version: String
     bevents: {[key: string]: () => void}; 
-    // commands: Collection<command>;
+    commands: Collection<Command>;
     prefix: string;
     aPrefix: string;
     devPrefix: string;
@@ -27,7 +27,7 @@ export class Metis extends Client {
         this.logger = new Logger()
         this.version = 'v1.0.0'
         this.bevents = {}; 
-        // this.commands = new Collection(command)
+        this.commands = new Collection(Command)
         this.prefix = config.prefix; 
         this.aPrefix = config.alphaPrefix
         this.devPrefix = config.devPrefix 
@@ -59,13 +59,13 @@ export class Metis extends Client {
     init(): void { 
         fs.readFile(`${__dirname}/metis.txt`, "utf8", function(err, data) { 
             console.log(data)
-            metis.logger.success(metis.user.username, 'Commands Loaded!')
-            metis.logger.success(metis.user.username, 'Events Loaded')
+            metis.logger.success("Metis", 'Commands Loaded!')
+            metis.logger.success("Metis", 'Events Loaded')
         })
         this.loadCommands(); 
-        this.loadEvents()
-        this.connect()
+        // this.loadEvents()
         this.db()
+        this.connect()
     }
 
     loadEvents(): void{
@@ -83,7 +83,7 @@ export class Metis extends Client {
             this.bevents[Event.name] = Event.handle.bind(this); 
             this.on(Event.name, this.bevents[Event.name]);
         }catch(err) {
-            metis.logger.error(metis.user.username, err)
+            metis.logger.error("Metis", err)
         }
     }
 
@@ -91,14 +91,13 @@ export class Metis extends Client {
         mongoose.connect(config.mongoLogin, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
-          useFindAndModify: true,
           dbName: 'metis',
         } as ConnectOptions); 
         mongoose.connection.on('error', () => { 
-            this.logger.error(this.user.username, 'Failed to connect to MongoDB')
+            this.logger.error("Metis", 'Failed to connect to MongoDB')
         }); 
         mongoose.connection.on('open', () => { 
-            this.logger.success(this.user.username, 'Connected to MongoDB')
+            this.logger.success("Metis", 'Connected to MongoDB')
         })
     }
 
@@ -111,7 +110,13 @@ export class Metis extends Client {
 
     private loadCommands(){
         fs.readdirSync(`${__dirname}/Modules`).forEach(dir => { 
+            const commands = fs.readdirSync(`${__dirname}/Modules/${dir}`).filter(file => file.endsWith('js'))
 
+            for (let file of commands) { 
+                let pull = require(`${__dirname}/Modules/${dir}/${file}`)
+                let CmdClass = new pull.cmd 
+                this.commands.add(CmdClass)
+            }
 
         })
             
