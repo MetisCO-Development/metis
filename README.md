@@ -1,2 +1,2 @@
 # metis-ts
-Typescript version of Metis ! 
+Typescript version of Metis !!
