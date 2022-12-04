@@ -52,7 +52,7 @@ export class Metis extends Client {
         // this.resolver = new Resolver()
         this.staff = ['344954369285947392', '510638296041259008']; 
         this.admins = ['344954369285947392', '510638296041259008']; 
-        this.devs = ['344954369285947392', '510638296041259008']; 
+        this.devs = ['344954369285947392']; 
 
     }
 
