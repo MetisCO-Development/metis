@@ -17,6 +17,7 @@ export class Command {
         this.module = data.module || 'default'
         this.aliases = data.aliases || ['None']; 
         this.permissions = data.permissions || 'User'
+
         this.helpInfo = data.helpInfo || 'someone waz lazy *yawn*'; 
         this.helpUsage = data.helpUsage 
         this.helpExample = data.helpExample 
