@@ -1,4 +1,7 @@
-import {Client, ClientOptions, Collection} from "eris"; 
+import {Client, ClientOptions, Collection} from "eris";
+import Guild from '../src/Core/Models/Guild'; 
+import Global from '../src/Core/Models/Global';
+import User from '../src/Core/Models/User'; 
 // save space for all Utils, Resolvers, Logger, Mongo models, types
 import {Logger} from "./Core/Structures/Logger"; 
 import {default as fs} from "fs"; 
@@ -8,51 +11,37 @@ const config = require("../config.json");
 
 export class Metis extends Client { 
     logger: Logger;
-    version: String
+    version = 'v1.0.0'
     bevents: {[key: string]: () => void}; 
     commands: Collection<Command>;
-    prefix: string;
-    aPrefix: string;
-    devPrefix: string;
-    models: {};
-    emotes: {};
-    colors: {};
+    prefix = config.prefix; 
+    aPrefix = config.alphaPrefix
+    devPrefix = config.devPrefix 
+    models = {user: User, global: Global, guild: Guild};
+    success = '<:metisSuccess:1043785651914559519>';
+    error = '<:metisError:1043785694969069627>';
+    neutral = '<:metisNeutral:1043786253138657320>';
+    online = '<:metisOnline:1043785771779371038>';
+    idle = '<:metisYellow:1043785838720458862>';
+    dnd ='<:metisDnd:1043786201796190241>';
+    offline = '<:metisOffline:1043785900745838714>';
+    red = 16711680;
+    yellow = 16770560;
+    green = 1441536;
+    blue = 30719;
+    defaultColor = 14356496;
     // util: Util;
     // resolver: Resolver;
-    staff: Array<string>;
-    admins: Array<string>; 
-    devs: Array<string>;
+    staff = ['344954369285947392', '510638296041259008']; 
+    admins = ['344954369285947392', '510638296041259008']; 
+    devs = ['344954369285947392']; 
     constructor(token: string, options: ClientOptions) { 
         super(token, options); 
         this.logger = new Logger()
-        this.version = 'v1.0.0'
         this.bevents = {}; 
         this.commands = new Collection(Command)
-        this.prefix = config.prefix; 
-        this.aPrefix = config.alphaPrefix
-        this.devPrefix = config.devPrefix 
-        // this.models = {user: UserModel, global: GlobalModel, guild: GuildModel}
-        this.emotes = { 
-            success: '<:metisSuccess:1043785651914559519>',
-            error: '<:metisError:1043785694969069627>',
-            neutral: '<:metisNeutral:1043786253138657320>',
-            online: '<:metisOnline:1043785771779371038>',
-            idle: '<:metisYellow:1043785838720458862>',
-            dnd: '<:metisDnd:1043786201796190241>',
-            offline: '<:metisOffline:1043785900745838714>'
-        }
-        this.colors = { 
-            red: 16711680,
-            yellow: 16770560,
-            green: 1441536,
-            blue: 30719,
-            default: 14356496
-        }
         // this.util = new Util()
         // this.resolver = new Resolver()
-        this.staff = ['344954369285947392', '510638296041259008']; 
-        this.admins = ['344954369285947392', '510638296041259008']; 
-        this.devs = ['344954369285947392']; 
 
     }
 
@@ -63,7 +52,7 @@ export class Metis extends Client {
             metis.logger.success("Metis", 'Events Loaded')
         })
         this.loadCommands(); 
-        // this.loadEvents()
+        this.loadEvents()
         this.db()
         this.connect()
     }
@@ -73,6 +62,7 @@ export class Metis extends Client {
         eventfiles.forEach(file => { 
             console.log(file)
             this.loadEvent(file);
+            metis.logger.error('Test', 'Can you see me?')
         });
     }
 
@@ -82,6 +72,7 @@ export class Metis extends Client {
             if(!Event){Event = require(`./Events/${eventfile}`).event}
             this.bevents[Event.name] = Event.handle.bind(this); 
             this.on(Event.name, this.bevents[Event.name]);
+            metis.logger.error('Test', 'Can you see me?')
         }catch(err) {
             metis.logger.error("Metis", err)
         }

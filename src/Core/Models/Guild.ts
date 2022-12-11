@@ -89,4 +89,4 @@ const guildSchema = new Schema({
     }
 })
 
-module.exports = model('Guild', guildSchema, 'guilds')
+export default model('Guild', guildSchema, 'guilds')

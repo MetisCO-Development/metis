@@ -17,4 +17,4 @@ const globalSchema = new Schema({
     }]
 
 })
-module.exports = model('Global', globalSchema, 'admin')
+export default model('Global', globalSchema, 'admin')
