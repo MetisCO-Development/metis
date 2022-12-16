@@ -42,14 +42,7 @@ const guildSchema = new mongoose_1.Schema({
         type: String,
         default: ''
     },
-    botCommander: {
-        type: Array,
-        default: []
-    },
-    modRoles: {
-        type: Array,
-        default: []
-    },
+    modRoles: Array,
     tags: [{
             name: String,
             content: String,
@@ -77,4 +70,4 @@ const guildSchema = new mongoose_1.Schema({
             time: String
         }],
 });
-exports.default = (0, mongoose_1.model)('MongoGuild', guildSchema, 'guilds');
+exports.default = (0, mongoose_1.model)('guild', guildSchema, 'guilds');

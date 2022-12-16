@@ -1,30 +1,61 @@
-import {Message, TextableChannel} from "eris"; 
-import {Metis} from "../../main"; 
-import {ICommandContext} from "../../types";
-
+import {Message, TextableChannel, TextChannel} from "eris"; 
+import { Metis } from "../../main";
+import {CommandPermissions, ICommandContext, MetisInterface, PermissionLevels} from "../../types";
+import { MetisClient } from "./Client";
+import {Metis as metis} from "../../main"
 export class Command { 
-    name: string; 
     id: string; 
-    module: string; 
-    aliases: Array<string>; 
-    permissions: string;
-    helpInfo: string; 
-    helpUsage: string;
-    helpExample: string;
-    constructor(data: Partial<Command>){ 
-        this.name = data.name || 'unnamed'
-        this.id = data.name; 
-        this.module = data.module || 'default'
-        this.aliases = data.aliases || ['None']; 
-        this.permissions = data.permissions || 'User'
-
-        this.helpInfo = data.helpInfo || 'someone waz lazy *yawn*'; 
-        this.helpUsage = data.helpUsage 
-        this.helpExample = data.helpExample 
+    name: string;
+    description: string; 
+    usage: string;
+    example: string; 
+    permLevel: PermissionLevels 
+    requiredUsers: Array<string>;
+    requiredGuilds: Array<string>;
+    showOnHelp: boolean; 
+    deleteOnUsage: boolean 
+    enabled: boolean 
+    aliases: Array<string>
     
+    constructor(cmd: Partial<Command>){ 
+        this.id = cmd.name ?? "unknown"
+        this.name = cmd.name ?? "unknown"
+        this.description = cmd.description ?? "None" 
+        this.usage = cmd.name + " " + cmd.usage ?? cmd.name
+        this.example = cmd.name + " " + cmd.example ?? "None"
+        this.permLevel = cmd.permLevel ?? CommandPermissions["user"]
+        this.requiredUsers = cmd.requiredUsers ?? []
+        this.requiredGuilds = cmd.requiredGuilds ?? []
+        this.showOnHelp = cmd.showOnHelp ?? true 
+        this.deleteOnUsage = cmd.deleteOnUsage ?? false 
+        this.enabled = cmd.enabled ?? true 
+        this.aliases = cmd.aliases ?? []
     }
-    async execute(metis: Metis, ctx: ICommandContext): Promise<unknown>{
-        return 'Unimplemented'
+
+    public client: MetisClient = metis.client
+
+    async execute(metis: MetisInterface, ctx: ICommandContext): Promise<any>{
+        if(!ctx){return}
+        if(!metis.commands){return}
+        return new Promise((resolve, reject) => {})
+    }
+
+    success(channel: TextChannel, message: string): any { 
+        if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
+        if(message.length > 500){return}
+        return channel.createMessage(`${metis.emotes.success} ${message}`).catch((error: Error) => {})
+    }
+
+    error(channel: TextChannel, message: string): any { 
+        if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
+        if(message.length > 500){return}
+        channel.createMessage(`${metis.emotes.error} ${message}`).catch((error: Error) => {})
+    }
+
+    info(channel: TextChannel, message: string): any { 
+        if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
+        if(message.length > 500) {return}
+        channel.createMessage(`${metis.emotes.info} ${message}`).catch((error: Error) => {})
     }
 
 }

@@ -1,4 +1,4 @@
-import {Schema, model} from "mongoose"; 
+import {Schema, model, Model, Document} from "mongoose"; 
 
 
 const guildSchema = new Schema({
@@ -11,17 +11,12 @@ const guildSchema = new Schema({
     guildName: { 
         type: String,
         required: true,
-        unique: true
     },
     ownerId: { 
         type: String,
-        required: true,
-        unique: true
     },
     owner: {
         type: String,
-        required: true,
-        unique: true
     },
     prefix: {
         type: String,
@@ -47,14 +42,7 @@ const guildSchema = new Schema({
         type: String,
         default: ''
     }, 
-    botCommander: {
-        type: Array, 
-        default: []
-    }, 
-    modRoles: {
-        type: Array, 
-        default: []
-    }, 
+   modRoles: Array,
     tags: [{
         name: String,
         content: String,
@@ -81,12 +69,47 @@ const guildSchema = new Schema({
         reason: String,
         time: String
     }],
-    mid: { 
-        type: Number, 
-        default: 0,
-        required: true,
-        unique: true
-    }
 })
 
-export default model('Guild', guildSchema, 'guilds')
+export interface MongoGuild { 
+    guildId: string 
+    guildName: string 
+    ownerId: string 
+    owner: string 
+    prefix: string 
+    messageLogChannel: string 
+    modLogChannel: string 
+    serverLogChannel: string 
+    otherLogChannel: string 
+    welcomeChannel: string 
+    modRoles: Array<string>
+    tags: [{
+        name: String,
+        content: String,
+        createdBy: String,
+        timestamp: String
+    }]
+    warnings: [{
+        _id: Schema.Types.ObjectId,
+        userId: String,
+        username: String,
+        moderatorID: String,
+        moderatorUsername: String,
+        reason: String,
+        time: String
+    }]
+    moderations: [{
+        _id: Schema.Types.ObjectId,
+        type: String,
+        userId: String,
+        username: String,
+        moderatorID: String,
+        moderatorUsername: String,
+        duration: String,
+        reason: String,
+        time: String
+    }]
+}
+export interface MongoGuildDoc extends Document, MongoGuild{}
+export interface MongoGuildModel extends Model<MongoGuildDoc>{}
+export default model<MongoGuildDoc>('guild', guildSchema, 'guilds')

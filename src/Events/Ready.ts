@@ -1,26 +1,20 @@
-import {Metis} from "../main"; 
+import {Metis as metis} from "../main"; 
 const config = require('../../config.json'); 
 let logTime = new Date().toLocaleTimeString('en-us', {timeZone: 'America/New_York'})
 let logDate = new Date().toLocaleDateString(); 
 
-class ReadyHandler { 
-    name: string; 
-    constructor(){
-        this.name = "ready";
-    }
+metis.client.on('ready', async () => { 
+    metis.client.editStatus('online', {name: `!help | ${metis.client.guilds.size} guilds`, type: 0 })
+
+    metis.client.executeWebhook('1043789410006740995', config.readyWebhook, { 
+        embeds: [{
+            color: metis.colors.green,
+            description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [ALL SHARDS READY]`
+        }]
+    })
+
+    metis.logger.success('Metis', `All ${metis.client.shards.size} Shards Connected`, 'Shard Manager')
+})
     
-    async handle(this: Metis): Promise<void> { 
-        this.editStatus("online", {name: `!help | ${this.guilds.size} guilds`})
-
-        this.executeWebhook('1043789410006740995', config.readyWebhook, { 
-            embeds: [{
-                color: this.green, 
-                description: `\`${logDate}  ${logTime}\` <@!${this.user.id}> [CONNECTED] Shard: \`1\``
-            }]
-        })
-
-        return this.logger.success('Metis', 'Metis has connected to Discord!', 'Ready Event')
-    }
-}
-
-export default new ReadyHandler;
+ 
+ 

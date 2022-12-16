@@ -17,4 +17,4 @@ const globalSchema = new mongoose_1.Schema({
             ownerId: String
         }]
 });
-exports.default = (0, mongoose_1.model)('Global', globalSchema, 'admin');
+exports.default = (0, mongoose_1.model)('global', globalSchema, 'globalDB');
