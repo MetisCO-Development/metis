@@ -2,7 +2,6 @@ import {Client, ClientOptions, Collection} from "eris";
 import Guild from '../src/Core/Models/Guild'; 
 import Global from '../src/Core/Models/Global';
 import User from '../src/Core/Models/User'; 
-// save space for all Utils, Resolvers, Logger, Mongo models, types
 import {Logger} from "./Core/Structures/Logger"; 
 import {default as fs} from "fs"; 
 import mongoose, { ConnectOptions } from "mongoose";
@@ -12,8 +11,8 @@ const config = require("../config.json");
 export class Metis extends Client { 
     logger: Logger;
     version = 'v1.0.0'
-    bevents: {[key: string]: () => void}; 
     commands: Collection<Command>;
+    bevents: {[key: string]: () => void};
     prefix = config.prefix; 
     aPrefix = config.alphaPrefix
     devPrefix = config.devPrefix 
@@ -29,7 +28,7 @@ export class Metis extends Client {
     yellow = 16770560;
     green = 1441536;
     blue = 30719;
-    defaultColor = 14356496;
+    defaultColor = 3242182;
     // util: Util;
     // resolver: Resolver;
     staff = ['344954369285947392', '510638296041259008']; 
@@ -38,8 +37,8 @@ export class Metis extends Client {
     constructor(token: string, options: ClientOptions) { 
         super(token, options); 
         this.logger = new Logger()
-        this.bevents = {}; 
         this.commands = new Collection(Command)
+        this.bevents = {};
         // this.util = new Util()
         // this.resolver = new Resolver()
 
@@ -48,33 +47,40 @@ export class Metis extends Client {
     init(): void { 
         fs.readFile(`${__dirname}/metis.txt`, "utf8", function(err, data) { 
             console.log(data)
-            metis.logger.success("Metis", 'Commands Loaded!')
-            metis.logger.success("Metis", 'Events Loaded')
         })
-        this.loadCommands(); 
-        this.loadEvents()
-        this.db()
-        this.connect()
+        this.logger.info('Metis', 'Initializing', 'Client Initialization').then(async () => { 
+            this.loadCommands(); 
+            this.loadEvents()
+            this.connect()
+            // this.db()
+        })
     }
+
+    // private loadEvents(){
+    //     const events = fs.readdirSync(`${__dirname}/Events`).filter(file => file.endsWith('js')); 
+    //     for (let file of events) { 
+    //         const evt = require(`${__dirname}/Events/${file}`)
+    //         metis.logger.success('Metis', 'All events loaded!', 'Event Loader')
+    //     }
+    // }
 
     loadEvents(): void{
-        const eventfiles = fs.readdirSync(__dirname + "/Events"); 
-        eventfiles.forEach(file => { 
-            console.log(file)
+        const eventfiles = fs.readdirSync(__dirname + "/Events");
+        eventfiles.forEach(file => {
             this.loadEvent(file);
-            metis.logger.error('Test', 'Can you see me?')
+            metis.logger.success('Metis', `Loaded ${this.bevents} Events`, 'Event Loader')
         });
     }
-
+    
     loadEvent(eventfile: string): void{
         try{
             let Event = require(`./Events/${eventfile}`).default;
             if(!Event){Event = require(`./Events/${eventfile}`).event}
-            this.bevents[Event.name] = Event.handle.bind(this); 
+            this.bevents[Event.name] = Event.handle.bind(this);
             this.on(Event.name, this.bevents[Event.name]);
-            metis.logger.error('Test', 'Can you see me?')
-        }catch(err) {
-            metis.logger.error("Metis", err)
+        }catch(err){
+            
+            console.log(err);
         }
     }
 
@@ -85,18 +91,11 @@ export class Metis extends Client {
           dbName: 'metis',
         } as ConnectOptions); 
         mongoose.connection.on('error', () => { 
-            this.logger.error("Metis", 'Failed to connect to MongoDB')
+            this.logger.error("Metis", 'Failed to connect to MongoDB', 'Mongo Connecter')
         }); 
         mongoose.connection.on('open', () => { 
-            this.logger.success("Metis", 'Connected to MongoDB')
+            this.logger.success("Metis", 'Connected to MongoDB', 'Mongo Connecter')
         })
-    }
-
-    reloadEvent(eventname: string): void{
-        if(!this.bevents[eventname]){throw new Error('Cannot reload an event that does not exist!');}
-        delete require.cache[require.resolve(`${__dirname}/Events/${eventname.charAt(0).toUpperCase() + eventname.slice(1)}.js`)]
-        this.removeAllListeners(eventname); 
-        this.loadEvent(eventname.charAt(0).toUpperCase() + eventname.slice(1));
     }
 
     private loadCommands(){
@@ -107,6 +106,7 @@ export class Metis extends Client {
                 let pull = require(`${__dirname}/Modules/${dir}/${file}`)
                 let CmdClass = new pull.cmd 
                 this.commands.add(CmdClass)
+                metis.logger.success('Metis', `Loaded ${commands.length} commands.`, 'Command Loader')
             }
 
         })

@@ -5,6 +5,7 @@ export interface ICommandContext{
     msg: Message;
     channel: TextChannel;
     guild: Guild;
+    role: Role;
     member: Member;
     user: User;
     command: Command;
