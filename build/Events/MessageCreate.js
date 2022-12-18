@@ -42,6 +42,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
         if (msg.content.startsWith(main_1.Metis.devPrefix) && msg.author.id === "344954369285947392") {
             prefix = main_1.Metis.devPrefix && prefix;
             console.log(prefix);
+            console.log(main_1.Metis.devPrefix);
         }
         if (!msg.content.length) {
             return;
