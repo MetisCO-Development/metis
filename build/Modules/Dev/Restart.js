@@ -32,7 +32,7 @@ class Restart extends Command_1.Command {
                     description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [RESTART] Shard: \`all\`\nInitiated by: \`${metis.util.getFullName(ctx.user)}\``
                 }
             });
-            return (0, child_process_1.exec)('pm2 restart metis');
+            return (0, child_process_1.exec)('pm2 restart Metis');
         }
         const shard = metis.client.shards.get(Number(ctx.args[0]));
         if (!shard) {
