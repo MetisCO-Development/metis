@@ -36,7 +36,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
         }
 
         guildDatabase = await metis.models.guild.findOne({guildId: msg.member.guild.id})
-        let prefix = metis.prefix
+        let prefix = guildDatabase.prefix
 
         if (metis.client.user.id == '1053147299611693056') { 
             prefix = metis.aPrefix
@@ -54,7 +54,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
                 username: metis.util.getFullName(msg.author), 
                 ownedGuilds: ownedGuilds ?? []
             })
-
+        
             metis.client.executeWebhook(config.devWebID, config.devWebhook, { 
                 embed: { 
                     color: metis.colors.green, 

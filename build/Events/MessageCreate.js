@@ -35,7 +35,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             main_1.Metis.logger.info("MongoDB", `Initialized Guild Model with ID: ${msg.member.guild.id}`);
         }
         guildDatabase = await main_1.Metis.models.guild.findOne({ guildId: msg.member.guild.id });
-        let prefix = main_1.Metis.prefix;
+        let prefix = guildDatabase.prefix;
         if (main_1.Metis.client.user.id == '1053147299611693056') {
             prefix = main_1.Metis.aPrefix;
         }
