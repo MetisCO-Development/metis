@@ -7,11 +7,11 @@ const userSchema = new Schema({
         index: true
     },
     username: String,
-    isBlacklisted: Boolean, 
-    ownedGuilds: [{
-        guildId: String,
-        guildName: String,
-    }]
+    isBlacklisted: { 
+        type: Boolean, 
+        default: false, 
+    },
+    ownedGuilds: Array
 })
 
 export interface MongoUser { 

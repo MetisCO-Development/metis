@@ -7,7 +7,7 @@ metis.client.on('error', async (err: Error, id: Number) => {
      metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, { 
         embeds: [{
             color: metis.colors.red,
-            description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [ERROR] Shard: \`${id}\`\n${err}`
+            description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [ERROR] Shard: \`${id}\`\n${err.name}: ${err.message}`
         }]
     })
 })

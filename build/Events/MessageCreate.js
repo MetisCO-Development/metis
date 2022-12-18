@@ -7,6 +7,7 @@ const main_1 = require("../main");
 const types_1 = require("../types");
 const CommandHandler_1 = require("../Core/Handlers/CommandHandler");
 const mongoose_1 = __importDefault(require("mongoose"));
+const config = require('../../config.json');
 main_1.Metis.client.on('messageCreate', async (msg) => {
     let userDatabase;
     let guildDatabase;
@@ -23,6 +24,13 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
                 ownerId: msg.channel.guild.ownerID,
                 owner: main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))
             });
+            main_1.Metis.client.executeWebhook(config.devWebID, config.devWebhook, {
+                embed: {
+                    color: main_1.Metis.colors.green,
+                    description: `**__New Guild Database Created__**:\n**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))}`,
+                    timestamp: new Date()
+                }
+            });
             main_1.Metis.logger.info("MongoDB", `Initialized Guild Model with ID: ${msg.member.guild.id}`);
         }
         guildDatabase = await main_1.Metis.models.guild.findOne({ guildId: msg.member.guild.id });
@@ -36,7 +44,20 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
         }
         const commandName = msg.content.split(' ')[0].toLowerCase().slice(prefix.length);
         if (!await main_1.Metis.models.user.findOne({ userID: msg.author.id })) {
-            await main_1.Metis.models.user.create({ userID: msg.author.id });
+            let ownedGuilds = main_1.Metis.client.guilds.filter(c => c.ownerID === ctx.user.id).map(c => c.name + " " + "(" + c.id + ")");
+            await main_1.Metis.models.user.create({
+                userID: msg.author.id,
+                username: main_1.Metis.util.getFullName(msg.author),
+                ownedGuilds: ownedGuilds
+            });
+            main_1.Metis.client.executeWebhook(config.devWebID, config.devWebhook, {
+                embed: {
+                    color: main_1.Metis.colors.green,
+                    description: `**__New User Database Created__**:\n**User:** ${main_1.Metis.util.getFullName(msg.author)} (\`${msg.author.id}\`)`,
+                    timestamp: new Date()
+                }
+            });
+            main_1.Metis.logger.info('Metis', `Initialized User Model with ID: ${msg.author.id}`);
         }
         userDatabase = await main_1.Metis.models.user.findOne({ userID: msg.author.id });
         const Command = main_1.Metis.commands.get(commandName) ||

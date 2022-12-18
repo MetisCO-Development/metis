@@ -8,10 +8,10 @@ const userSchema = new mongoose_1.Schema({
         index: true
     },
     username: String,
-    isBlacklisted: Boolean,
-    ownedGuilds: [{
-            guildId: String,
-            guildName: String,
-        }]
+    isBlacklisted: {
+        type: Boolean,
+        default: false,
+    },
+    ownedGuilds: Array
 });
 exports.default = (0, mongoose_1.model)('user', userSchema, 'users');

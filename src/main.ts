@@ -1,4 +1,4 @@
-import {Client, ClientOptions, Collection} from "eris";
+import {ClientOptions, Collection} from "eris";
 import MongoGuild from './Core/Models/MongoGuild'; 
 import MongoGlobal from './Core/Models/MongoGlobal';
 import MongoUser from './Core/Models/MongoUser'; 
@@ -7,9 +7,9 @@ import {default as fs} from "fs";
 import mongoose, { ConnectOptions } from "mongoose";
 import {Command} from "./Core/Structures/Command"; 
 import {MetisClient} from "./Core/Structures/Client"
-import { CommandCollection, MetisColors, MetisEmotes, MetisInterface, MetisModels } from "./types";
-import { Resolver } from "./Core/Structures/Resolver";
-import { Util } from "./Core/Structures/Util";
+import {CommandCollection, MetisColors, MetisEmotes, MetisInterface, MetisModels} from "./types";
+import {Resolver} from "./Core/Structures/Resolver";
+import {Util} from "./Core/Structures/Util";
 const config = require("../config.json"); 
 
 const ErisOptions: ClientOptions = { 
