@@ -118,9 +118,8 @@ class metis implements MetisInterface {
                 this.commands.add(CmdClass)
             
             }
-            Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader')
-
         })
+        Metis.logger.success('Metis', `Loaded ${this.commands.size} Commands`, 'Command Loader')
             
         }
     }

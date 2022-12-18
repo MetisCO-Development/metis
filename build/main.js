@@ -101,8 +101,8 @@ class metis {
                 let CmdClass = new pull.cmd;
                 this.commands.add(CmdClass);
             }
-            exports.Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader');
         });
+        exports.Metis.logger.success('Metis', `Loaded ${this.commands.size} Commands`, 'Command Loader');
     }
 }
 exports.Metis = new metis(config.token, ErisOptions);
