@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Command_1 = require("../../Core/Structures/Command");
 const types_1 = require("../../types");
 const util_1 = require("util");
-const config = require('../../config.json');
+const config = require('../../../config.json');
 class Eval extends Command_1.Command {
     constructor() {
         super({

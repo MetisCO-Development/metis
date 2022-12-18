@@ -1,7 +1,7 @@
 import {Command} from "../../Core/Structures/Command"; 
 import {ICommandContext, MetisInterface, CommandPermissions} from "../../types";
 import {inspect} from "util"; 
-const config = require('../../config.json');
+const config = require('../../../config.json');
 class Eval extends Command { 
     constructor(){ 
         super({
