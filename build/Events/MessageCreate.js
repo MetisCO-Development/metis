@@ -28,7 +28,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
                 embed: {
                     color: main_1.Metis.colors.green,
                     title: 'New Guild Database Created',
-                    description: `**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))}`,
+                    description: `**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${main_1.Metis.util.getFullName(await main_1.Metis.client.getRESTUser(msg.channel.guild.ownerID))}`,
                     timestamp: new Date()
                 }
             });

@@ -29,7 +29,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
                 embed: { 
                     color: metis.colors.green, 
                     title : 'New Guild Database Created',
-                    description: `**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${metis.util.getFullName(metis.client.users.get(msg.channel.guild.ownerID))}`,
+                    description: `**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${metis.util.getFullName(await metis.client.getRESTUser(msg.channel.guild.ownerID))}`,
                     timestamp: new Date()                }
             })
             metis.logger.info("MongoDB", `Initialized Guild Model with ID: ${msg.member.guild.id}`)
