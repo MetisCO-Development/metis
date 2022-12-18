@@ -43,7 +43,6 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             prefix = main_1.Metis.devPrefix && prefix;
             console.log(prefix);
         }
-        console.log(prefix);
         if (!msg.content.length) {
             return;
         }
