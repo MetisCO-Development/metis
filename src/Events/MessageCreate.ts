@@ -52,7 +52,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
             await metis.models.user.create({
                 userID: msg.author.id, 
                 username: metis.util.getFullName(msg.author), 
-                ownedGuilds: ownedGuilds
+                ownedGuilds: ownedGuilds ?? []
             })
 
             metis.client.executeWebhook(config.devWebID, config.devWebhook, { 
