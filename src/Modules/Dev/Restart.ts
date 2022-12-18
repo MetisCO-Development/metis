@@ -1,7 +1,7 @@
 import {Command} from "../../Core/Structures/Command";
 import {ICommandContext, MetisInterface, CommandPermissions} from "../../types"; 
 import {exec} from "child_process"; 
-const config = require('../../config.json'); 
+const config = require('../../../config.json'); 
 
 class Restart extends Command { 
     constructor(){

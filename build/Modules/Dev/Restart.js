@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Command_1 = require("../../Core/Structures/Command");
 const types_1 = require("../../types");
 const child_process_1 = require("child_process");
-const config = require('../../config.json');
+const config = require('../../../config.json');
 class Restart extends Command_1.Command {
     constructor() {
         super({
