@@ -6,6 +6,7 @@ class Ping extends Command_1.Command {
     constructor() {
         super({
             name: 'ping',
+            module: 'Info',
             description: 'Displays current bot latency.',
             usage: '',
             example: '',

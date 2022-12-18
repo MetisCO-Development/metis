@@ -8,6 +8,7 @@ class Command {
         this.client = main_1.Metis.client;
         this.id = cmd.name ?? "unknown";
         this.name = cmd.name ?? "unknown";
+        this.module = cmd.module ?? "Internal";
         this.description = cmd.description ?? "None";
         this.usage = cmd.name + " " + cmd.usage ?? cmd.name;
         this.example = cmd.name + " " + cmd.example ?? "None";
