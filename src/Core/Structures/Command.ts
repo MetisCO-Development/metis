@@ -45,19 +45,32 @@ export class Command {
     success(channel: TextChannel, message: string): any { 
         if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
         if(message.length > 500){return}
-        return channel.createMessage(`${metis.emotes.success} ${message}`).catch((error: Error) => {})
+        return channel.createMessage({ 
+            embed: { 
+                color: metis.colors.green, 
+                description: `${metis.emotes.success} ${message}`
+            }
+        }).catch((error: Error) => {})
     }
 
     error(channel: TextChannel, message: string): any { 
         if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
         if(message.length > 500){return}
-        channel.createMessage(`${metis.emotes.error} ${message}`).catch((error: Error) => {})
-    }
+        return channel.createMessage({ 
+            embed: { 
+                color: metis.colors.red, 
+                description: `${metis.emotes.error} ${message}`
+            }
+        }).catch((error: Error) => {})    }
 
     info(channel: TextChannel, message: string): any { 
         if(!channel.permissionsOf(this.client.user.id).has('sendMessages')){return}
         if(message.length > 500) {return}
-        channel.createMessage(`${metis.emotes.info} ${message}`).catch((error: Error) => {})
-    }
+        return channel.createMessage({ 
+            embed: { 
+                color: metis.colors.blue, 
+                description: `${metis.emotes.info} ${message}`
+            }
+        }).catch((error: Error) => {})    }
 
 }

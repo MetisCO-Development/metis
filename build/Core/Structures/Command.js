@@ -36,7 +36,12 @@ class Command {
         if (message.length > 500) {
             return;
         }
-        return channel.createMessage(`${main_1.Metis.emotes.success} ${message}`).catch((error) => { });
+        return channel.createMessage({
+            embed: {
+                color: main_1.Metis.colors.green,
+                description: `${main_1.Metis.emotes.success} ${message}`
+            }
+        }).catch((error) => { });
     }
     error(channel, message) {
         if (!channel.permissionsOf(this.client.user.id).has('sendMessages')) {
@@ -45,7 +50,12 @@ class Command {
         if (message.length > 500) {
             return;
         }
-        channel.createMessage(`${main_1.Metis.emotes.error} ${message}`).catch((error) => { });
+        return channel.createMessage({
+            embed: {
+                color: main_1.Metis.colors.red,
+                description: `${main_1.Metis.emotes.error} ${message}`
+            }
+        }).catch((error) => { });
     }
     info(channel, message) {
         if (!channel.permissionsOf(this.client.user.id).has('sendMessages')) {
@@ -54,7 +64,12 @@ class Command {
         if (message.length > 500) {
             return;
         }
-        channel.createMessage(`${main_1.Metis.emotes.info} ${message}`).catch((error) => { });
+        return channel.createMessage({
+            embed: {
+                color: main_1.Metis.colors.blue,
+                description: `${main_1.Metis.emotes.info} ${message}`
+            }
+        }).catch((error) => { });
     }
 }
 exports.Command = Command;
