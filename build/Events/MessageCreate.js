@@ -35,18 +35,15 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             main_1.Metis.logger.info("MongoDB", `Initialized Guild Model with ID: ${msg.member.guild.id}`);
         }
         guildDatabase = await main_1.Metis.models.guild.findOne({ guildId: msg.member.guild.id });
-        let prefix = '';
-        let devPrefix = main_1.Metis.devPrefix;
+        let prefix = guildDatabase.prefix;
         if (main_1.Metis.client.user.id == '1053147299611693056') {
-            devPrefix = main_1.Metis.devPrefix;
             prefix = main_1.Metis.aPrefix;
         }
-        else {
-            prefix = guildDatabase.prefix;
-        }
-        // @ts-ignore
-        if (msg.content.startsWith(main_1.Metis.devPrefix) && msg.author.id === "344954369285947392" ? prefix = main_1.Metis.devPrefix : prefix = prefix)
+        if (msg.content.startsWith(main_1.Metis.devPrefix) && msg.author.id === "344954369285947392") {
+            prefix = main_1.Metis.devPrefix && prefix;
             console.log(prefix);
+        }
+        console.log(prefix);
         if (!msg.content.length) {
             return;
         }
