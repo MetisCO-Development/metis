@@ -100,8 +100,8 @@ class metis {
                 let pull = require(`${__dirname}/Modules/${dir}/${file}`);
                 let CmdClass = new pull.cmd;
                 this.commands.add(CmdClass);
-                exports.Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader');
             }
+            exports.Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader');
         });
     }
 }

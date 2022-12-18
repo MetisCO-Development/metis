@@ -116,8 +116,9 @@ class metis implements MetisInterface {
                 let pull = require(`${__dirname}/Modules/${dir}/${file}`)
                 let CmdClass = new pull.cmd 
                 this.commands.add(CmdClass)
-                Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader')
+            
             }
+            Metis.logger.success('Metis', `Loaded ${commands.length} Commands`, 'Command Loader')
 
         })
             
