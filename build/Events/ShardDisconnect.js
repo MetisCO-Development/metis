@@ -5,10 +5,20 @@ const config = require('../../config.json');
 let logTime = new Date().toLocaleTimeString('en-us', { timeZone: 'America/New_York' });
 let logDate = new Date().toLocaleDateString();
 main_1.Metis.client.on('shardDisconnect', async (err, id) => {
-    main_1.Metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, {
-        embeds: [{
-                color: main_1.Metis.colors.red,
-                description: `\`${logDate}  ${logTime}\` <@!${main_1.Metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\`\n${err.name}: ${err.message}`
-            }]
-    }).catch((error) => { });
+    if (err) {
+        main_1.Metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, {
+            embeds: [{
+                    color: main_1.Metis.colors.red,
+                    description: `\`${logDate}  ${logTime}\` <@!${main_1.Metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\`\n${err.name}: ${err.message}`
+                }]
+        }).catch((error) => { });
+    }
+    else {
+        main_1.Metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, {
+            embeds: [{
+                    color: main_1.Metis.colors.red,
+                    description: `\`${logDate}  ${logTime}\` <@!${main_1.Metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\``
+                }]
+        }).catch((error) => { });
+    }
 });

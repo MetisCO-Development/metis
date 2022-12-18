@@ -4,11 +4,19 @@ let logTime = new Date().toLocaleTimeString('en-us', {timeZone: 'America/New_Yor
 let logDate = new Date().toLocaleDateString();  
 
 metis.client.on('shardDisconnect', async (err: Error, id: Number) => { 
-
-    metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, { 
-        embeds: [{
-            color: metis.colors.red,
-            description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\`\n${err.name}: ${err.message}`
-        }]
-    }).catch((error: Error) => {})
+    if (err) { 
+        metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, { 
+            embeds: [{
+                color: metis.colors.red,
+                description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\`\n${err.name}: ${err.message}`
+            }]
+        }).catch((error: Error) => {})
+    } else { 
+        metis.client.executeWebhook(config.readyWebhookID, config.readyWebhook, { 
+            embeds: [{
+                color: metis.colors.red,
+                description: `\`${logDate}  ${logTime}\` <@!${metis.client.user.id}> [SHARD DISCONNECT] Shard: \`${id}\``
+            }]
+        }).catch((error: Error) => {})
+    }
 })
