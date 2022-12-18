@@ -35,14 +35,14 @@ metis.client.on('messageCreate', async (msg: Message) => {
         }
 
         guildDatabase = await metis.models.guild.findOne({guildId: msg.member.guild.id})
-        let prefix: string = guildDatabase.prefix ?? metis.prefix  
+        let prefix: string = guildDatabase.prefix 
         
         if (msg.content.startsWith(metis.devPrefix) && msg.author.id === "344954369285947392" ? prefix = metis.devPrefix : prefix = prefix)
         if (!msg.content.length){return}
         if(!msg.content.startsWith(prefix)){return}
         const commandName = msg.content.split(' ')[0].toLowerCase().slice(prefix.length)
         if(!await metis.models.user.findOne({userID: msg.author.id})){
-            let ownedGuilds = metis.client.guilds.filter(c => c.ownerID === msg.author.id).map(c => c.name + " " + "(" + c.id + ")")
+            let ownedGuilds = metis.client.guilds.filter(c => c.ownerID === ctx.user.id).map(c => c.name + " " + "(" + c.id + ")")
             await metis.models.user.create({
                 userID: msg.author.id, 
                 username: metis.util.getFullName(msg.author), 
@@ -56,7 +56,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
                     timestamp: new Date()               
                  }
             })
-            metis.logger.info('Metis', `Initialized User Model with ID: ${msg.author.id}`)
+            metis.logger.info('Metis', `Initialized Guild Model with ID: ${msg.author.id}`)
         }
         
         userDatabase = await metis.models.user.findOne({userID: msg.author.id})
