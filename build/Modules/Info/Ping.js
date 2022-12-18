@@ -23,7 +23,7 @@ class Ping extends Command_1.Command {
         const originalTime = Date.now();
         return ctx.channel.createMessage({
             embed: {
-                description: `${metis.emotes.info} Pong!`,
+                description: `${metis.emotes.info} Ping?`,
                 color: metis.colors.default
             }
         }).then(message => {
@@ -33,7 +33,7 @@ class Ping extends Command_1.Command {
                     color: metis.colors.default
                 }
             });
-        }).catch((error) => { });
+        }).catch(() => undefined);
     }
 }
 module.exports.cmd = Ping;
