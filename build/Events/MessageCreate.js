@@ -27,7 +27,8 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             main_1.Metis.client.executeWebhook(config.devWebID, config.devWebhook, {
                 embed: {
                     color: main_1.Metis.colors.green,
-                    description: `**__New Guild Database Created__**:\n**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))}`,
+                    title: 'New Guild Database Created',
+                    description: `**Guild:** ${msg.channel.guild.name} (\`${msg.channel.guild.id}\`)\n**Owner:** ${main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))}`,
                     timestamp: new Date()
                 }
             });
@@ -53,7 +54,8 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             main_1.Metis.client.executeWebhook(config.devWebID, config.devWebhook, {
                 embed: {
                     color: main_1.Metis.colors.green,
-                    description: `**__New User Database Created__**:\n**User:** ${main_1.Metis.util.getFullName(msg.author)} (\`${msg.author.id}\`)`,
+                    title: 'New User Database Created',
+                    description: `**User:** ${main_1.Metis.util.getFullName(msg.author)} (\`${msg.author.id}\`)`,
                     timestamp: new Date()
                 }
             });
