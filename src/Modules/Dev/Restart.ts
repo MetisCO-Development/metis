@@ -53,3 +53,5 @@ class Restart extends Command {
 
     }
 }
+
+module.exports.cmd = Restart
