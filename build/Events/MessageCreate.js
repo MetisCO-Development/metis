@@ -45,7 +45,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
         }
         const commandName = msg.content.split(' ')[0].toLowerCase().slice(prefix.length);
         if (!await main_1.Metis.models.user.findOne({ userID: msg.author.id })) {
-            let ownedGuilds = main_1.Metis.client.guilds.filter(c => c.ownerID === ctx.user.id).map(c => c.name + " " + "(" + c.id + ")");
+            let ownedGuilds = main_1.Metis.client.guilds.filter(c => c.ownerID === msg.author.id).map(c => c.name + " " + "(" + c.id + ")");
             await main_1.Metis.models.user.create({
                 userID: msg.author.id,
                 username: main_1.Metis.util.getFullName(msg.author),
