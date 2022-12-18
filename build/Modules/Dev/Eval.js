@@ -26,10 +26,6 @@ class Eval extends Command_1.Command {
         let evaled = await eval(code);
         if (typeof evaled !== "string")
             evaled = (0, util_1.inspect)(evaled, { depth: 0 });
-        if (evaled.includes("token") || evaled.includes(config.token)) {
-            evaled = evaled.replace("Fuck You");
-            evaled = evaled.replace(config.token, "MNjHYeyqwoLI5OTYxMTY5MzA1Ng.GbWX0Q.kJhgEiwqekN1248edsJJj1Acr68K6I_8sLoCkjlCSCc");
-        }
         msgArray = msgArray.concat(metis.util.splitMessage(evaled, 1990));
         for (const msg of msgArray) {
             ctx.channel.createMessage({

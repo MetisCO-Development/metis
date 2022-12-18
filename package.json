@@ -25,6 +25,7 @@
     "@types/node": "^18.11.10",
     "@types/signale": "^1.4.4",
     "axios": "^1.2.0",
+    "child_process": "^1.0.2",
     "eris": "^0.17.1",
     "fs": "^0.0.1-security",
     "mongoose": "^6.7.5",
