@@ -35,7 +35,16 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
             main_1.Metis.logger.info("MongoDB", `Initialized Guild Model with ID: ${msg.member.guild.id}`);
         }
         guildDatabase = await main_1.Metis.models.guild.findOne({ guildId: msg.member.guild.id });
-        let prefix = guildDatabase.prefix;
+        let prefix = '';
+        let devPrefix = main_1.Metis.devPrefix;
+        if (main_1.Metis.client.user.id == '1053147299611693056') {
+            devPrefix = main_1.Metis.devPrefix;
+            prefix = main_1.Metis.aPrefix;
+        }
+        else {
+            prefix = guildDatabase.prefix;
+        }
+        // @ts-ignore
         if (msg.content.startsWith(main_1.Metis.devPrefix) && msg.author.id === "344954369285947392" ? prefix = main_1.Metis.devPrefix : prefix = prefix)
             if (!msg.content.length) {
                 return;
@@ -59,7 +68,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
                     timestamp: new Date()
                 }
             });
-            main_1.Metis.logger.info('Metis', `Initialized Guild Model with ID: ${msg.author.id}`);
+            main_1.Metis.logger.info('Metis', `Initialized User Model with ID: ${msg.author.id}`);
         }
         userDatabase = await main_1.Metis.models.user.findOne({ userID: msg.author.id });
         const Command = main_1.Metis.commands.get(commandName) ||

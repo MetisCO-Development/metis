@@ -36,8 +36,15 @@ metis.client.on('messageCreate', async (msg: Message) => {
         }
 
         guildDatabase = await metis.models.guild.findOne({guildId: msg.member.guild.id})
-        let prefix: string = guildDatabase.prefix 
-        
+        let prefix = ''
+        let devPrefix = metis.devPrefix
+        if (metis.client.user.id == '1053147299611693056') { 
+            devPrefix = metis.devPrefix
+            prefix = metis.aPrefix
+        } else { 
+            prefix = guildDatabase.prefix
+        } 
+        // @ts-ignore
         if (msg.content.startsWith(metis.devPrefix) && msg.author.id === "344954369285947392" ? prefix = metis.devPrefix : prefix = prefix)
         if (!msg.content.length){return}
         if(!msg.content.startsWith(prefix)){return}
@@ -58,7 +65,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
                     timestamp: new Date()               
                  }
             })
-            metis.logger.info('Metis', `Initialized Guild Model with ID: ${msg.author.id}`)
+            metis.logger.info('Metis', `Initialized User Model with ID: ${msg.author.id}`)
         }
         
         userDatabase = await metis.models.user.findOne({userID: msg.author.id})
