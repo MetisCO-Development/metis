@@ -22,7 +22,7 @@ main_1.Metis.client.on('messageCreate', async (msg) => {
                 guildId: msg.channel.guild.id,
                 guildName: msg.channel.guild.name,
                 ownerId: msg.channel.guild.ownerID,
-                owner: main_1.Metis.util.getFullName(main_1.Metis.client.users.get(msg.channel.guild.ownerID))
+                owner: main_1.Metis.util.getFullName(await main_1.Metis.client.getRESTUser(msg.channel.guild.ownerID))
             });
             main_1.Metis.client.executeWebhook(config.devWebID, config.devWebhook, {
                 embed: {
