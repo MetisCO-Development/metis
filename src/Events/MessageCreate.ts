@@ -46,6 +46,7 @@ metis.client.on('messageCreate', async (msg: Message) => {
         } 
         // @ts-ignore
         if (msg.content.startsWith(metis.devPrefix) && msg.author.id === "344954369285947392" ? prefix = metis.devPrefix : prefix = prefix)
+        console.log(prefix)
         if (!msg.content.length){return}
         if(!msg.content.startsWith(prefix)){return}
         const commandName = msg.content.split(' ')[0].toLowerCase().slice(prefix.length)
