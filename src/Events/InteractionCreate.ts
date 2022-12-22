@@ -10,11 +10,10 @@ metis.client.on('interactionCreate', async (interaction: Interaction) => {
                 let ping = { 
                     embeds: [{
                         color: metis.colors.blue, 
-                        description: `${metis.emotes.info} Ping?`
+                        description: `${metis.emotes.info} Ping! \`${Date.now() - now} `
                     }]
                 }
                await interaction.createMessage(ping) 
-
         }
     }
 })
