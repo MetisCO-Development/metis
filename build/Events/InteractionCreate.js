@@ -11,10 +11,17 @@ main_1.Metis.client.on('interactionCreate', async (interaction) => {
                 let ping = {
                     embeds: [{
                             color: main_1.Metis.colors.blue,
-                            description: `${main_1.Metis.emotes.info} Ping! \`${Date.now() - now} `
+                            description: `${main_1.Metis.emotes.info} Ping?`
                         }]
                 };
-                await interaction.createMessage(ping);
+                await interaction.createMessage(ping).then(() => {
+                    interaction.editOriginalMessage({
+                        embeds: [{
+                                color: main_1.Metis.colors.blue,
+                                description: `${main_1.Metis.emotes.info} Ping! \`${Date.now() - now}\``
+                            }]
+                    });
+                });
         }
     }
 });
