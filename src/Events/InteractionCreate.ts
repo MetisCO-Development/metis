@@ -13,7 +13,10 @@ metis.client.on('interactionCreate', async (interaction: Interaction) => {
                         description: `${metis.emotes.info} Ping?`
                     }]
                 }
-                interaction.createMessage(ping)
+                interaction.createMessage(ping) 
+            default: { 
+                return interaction.createMessage('interaction received')
+            }
         }
     }
 })
