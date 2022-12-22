@@ -33,7 +33,7 @@ class Eval extends Command {
                 embed: {
                     author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
                     description: "```js\n" + evaled + "```",
-                    color: metis.colors.default,
+                    color: metis.colors.blue,
                     timestamp: new Date(),
            }
             })
