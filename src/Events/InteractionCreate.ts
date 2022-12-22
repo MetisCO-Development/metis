@@ -3,7 +3,6 @@ import {Metis as metis} from "../main";
 const config = require('../../config.json'); 
 
 metis.client.on('interactionCreate', async (interaction: Interaction) => { 
-    console.log(interaction.acknowledged)
     if(interaction instanceof CommandInteraction){
         switch(interaction.data.name) { 
             case "ping": 
@@ -14,10 +13,8 @@ metis.client.on('interactionCreate', async (interaction: Interaction) => {
                         description: `${metis.emotes.info} Ping?`
                     }]
                 }
-                interaction.createMessage(ping) 
-            default: { 
-                return interaction.createMessage('interaction received')
-            }
+               await interaction.createMessage(ping) 
+
         }
     }
 })
