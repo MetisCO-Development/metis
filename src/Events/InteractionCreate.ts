@@ -24,35 +24,6 @@ metis.client.on('interactionCreate', async (interaction: Interaction, args: Arra
                         }]
                     })
                })
-
-               case "eval": 
-                let msgArray: Array<string> = []
-                const code = args.join(" "); 
-                let evaled = await eval(code);
-                if (typeof evaled !== "string")
-                    evaled = inspect(evaled, {depth: 0});
-                
-                msgArray = msgArray.concat(metis.util.splitMessage(evaled, 1990))
-                
-                for (const msg of msgArray){
-                    interaction.channel.createMessage({
-                        embed: {
-                            author: { name: 'Eval Results', icon_url: interaction.user.avatarURL },
-                            description: "```js\n" + evaled + "```",
-                            color: metis.colors.blue,
-                            timestamp: new Date(),
-                    }
-                    }).catch((err) => { 
-                        interaction.channel.createMessage({
-                            embed: { 
-                            author: { name: 'Eval Results', icon_url: interaction.user.avatarURL },
-                            description: "```js\n" + err + "```",
-                            color: metis.colors.blue,
-                            timestamp: new Date(),
-                            }
-                        })
-                    })
-                }
             // new commands
         }
     }
