@@ -1,7 +1,7 @@
 import {Command} from "../../Core/Structures/Command"; 
 import {ICommandContext, MetisInterface, CommandPermissions} from "../../types";
 import {inspect} from "util"; 
-const config = require('../../../config.json');
+
 class Eval extends Command { 
     constructor(){ 
         super({
@@ -32,17 +32,17 @@ class Eval extends Command {
             ctx.channel.createMessage({
                 embed: {
                     author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
-                    description: "```js\n" + evaled + "```",
+                    description: metis.util.formatCode(msg.toString()),
                     color: metis.colors.blue,
                     timestamp: new Date(),
            }
             }).catch((err) => { 
                 ctx.channel.createMessage({
                     embed: { 
-                    author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
-                    description: "```js\n" + err + "```",
-                    color: metis.colors.blue,
-                    timestamp: new Date(),
+                        author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
+                        description: metis.util.formatCode(msg.toString()),
+                        color: metis.colors.blue,
+                        timestamp: new Date(),
                     }
                 })
             })

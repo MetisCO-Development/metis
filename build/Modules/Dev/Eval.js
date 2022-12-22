@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Command_1 = require("../../Core/Structures/Command");
 const types_1 = require("../../types");
 const util_1 = require("util");
-const config = require('../../../config.json');
 class Eval extends Command_1.Command {
     constructor() {
         super({
@@ -31,7 +30,7 @@ class Eval extends Command_1.Command {
             ctx.channel.createMessage({
                 embed: {
                     author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
-                    description: "```js\n" + evaled + "```",
+                    description: metis.util.formatCode(msg.toString()),
                     color: metis.colors.blue,
                     timestamp: new Date(),
                 }
@@ -39,7 +38,7 @@ class Eval extends Command_1.Command {
                 ctx.channel.createMessage({
                     embed: {
                         author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
-                        description: "```js\n" + err + "```",
+                        description: metis.util.formatCode(msg.toString()),
                         color: metis.colors.blue,
                         timestamp: new Date(),
                     }

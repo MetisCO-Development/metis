@@ -7,7 +7,7 @@ class Restart extends Command {
     constructor(){
         super({
             name: 'restart', 
-            module: 'dev', 
+            module: 'Dev', 
             description: 'Restarts the bot or a specified shard.', 
             usage: '[shard]', 
             example: '0', 
