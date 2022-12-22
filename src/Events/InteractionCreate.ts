@@ -26,7 +26,6 @@ metis.client.on('interactionCreate', async (interaction: Interaction, args: Arra
                })
 
                case "eval": 
-                if (!metis.developer.includes(interaction.user.id)) {return;}
                 let msgArray: Array<string> = []
                 const code = args.join(" "); 
                 let evaled = await eval(code);

@@ -1,4 +1,5 @@
 import {Metis as metis} from "../main"; 
+import {ApplicationCommandPermissions} from "eris";
 const config = require('../../config.json'); 
 let logTime = new Date().toLocaleTimeString('en-us', {timeZone: 'America/New_York'})
 let logDate = new Date().toLocaleDateString(); 
@@ -18,12 +19,11 @@ metis.client.on('ready', async () => {
     //     type: 1, 
     //     defaultPermission: true
     // })
-    
     metis.client.createGuildCommand('1043755488157913189', { 
         name: 'eval', 
         description: 'Evaluates code.', 
         type: 1, 
-        defaultPermission: true, 
+        defaultPermission: false,
         options: [
             { 
                 name: 'code', 

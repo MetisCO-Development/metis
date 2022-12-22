@@ -22,7 +22,7 @@ main_1.Metis.client.on('ready', async () => {
         name: 'eval',
         description: 'Evaluates code.',
         type: 1,
-        defaultPermission: true,
+        defaultPermission: false,
         options: [
             {
                 name: 'code',
