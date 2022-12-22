@@ -6,7 +6,7 @@ let logTime = new Date().toLocaleTimeString('en-us', { timeZone: 'America/New_Yo
 let logDate = new Date().toLocaleDateString();
 main_1.Metis.client.on('ready', async () => {
     main_1.Metis.client.editStatus('online', { name: `!help | ${main_1.Metis.client.guilds.size} guilds`, type: 0 });
-    main_1.Metis.client.createGuildCommand(config.homeServer, {
+    main_1.Metis.client.createGuildCommand('1043755488157913189', {
         name: 'ping',
         description: 'Pings the bot',
         type: 1,
@@ -18,7 +18,7 @@ main_1.Metis.client.on('ready', async () => {
     //     type: 1, 
     //     defaultPermission: true
     // })
-    main_1.Metis.client.createGuildCommand(config.homeServer, {
+    main_1.Metis.client.createGuildCommand('1043755488157913189', {
         name: 'eval',
         description: 'Evaluates code.',
         type: 1,
