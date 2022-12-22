@@ -1,6 +1,6 @@
 import {Command} from "../../Core/Structures/Command"; 
 import { CommandPermissions, ICommandContext, MetisInterface } from "../../types";
-import { ApplicationCommand, ApplicationCommandOptions } from "eris";
+import { Interaction, CommandInteraction } from "eris";
 class Ping extends Command { 
     constructor(){
         super({
@@ -20,6 +20,29 @@ class Ping extends Command {
     }
 
     async execute(metis: MetisInterface, ctx: ICommandContext) { 
+        metis.client.on('interactionCreate', async (interaction: Interaction) => { 
+            if(interaction instanceof CommandInteraction){
+                switch(interaction.data.name) { 
+                    case "ping": 
+                        let now = Date.now()
+                        let ping = { 
+                            embeds: [{
+                                color: metis.colors.blue, 
+                                description: `${metis.emotes.info} Ping?`
+                            }]
+                        }
+                       await interaction.createMessage(ping).then(() => { 
+                           return interaction.editOriginalMessage({
+                                embeds: [{
+                                    color: metis.colors.blue, 
+                                    description: `${metis.emotes.info} Ping! \`${Date.now() - now}ms\``
+                                }]
+                            })
+                       })
+                }
+            }
+        })
+        
         const originalTime = Date.now()
         return ctx.channel.createMessage({
             embed: { 
@@ -33,8 +56,11 @@ class Ping extends Command {
                     color: metis.colors.blue
                 }
             })
-        }).catch(() => undefined)
+        })
+
     }
+
+    
 }
 
 module.exports.cmd = Ping
