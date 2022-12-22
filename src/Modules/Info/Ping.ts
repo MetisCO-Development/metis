@@ -20,17 +20,6 @@ class Ping extends Command {
     }
 
     async execute(metis: MetisInterface, ctx: ICommandContext) { 
-        metis.client.createGuildCommand('1043755488157913189', {
-            name: 'Ping',
-            description: 'Pings the bot',
-            type: 1, 
-            defaultPermission: true
-        })
-        metis.client.createCommand({
-            type: 1, 
-            name: 'ping', 
-            description: 'Pings the bot'
-        })
         const originalTime = Date.now()
         return ctx.channel.createMessage({
             embed: { 

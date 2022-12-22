@@ -6,5 +6,16 @@ let logTime = new Date().toLocaleTimeString('en-us', { timeZone: 'America/New_Yo
 let logDate = new Date().toLocaleDateString();
 main_1.Metis.client.on('ready', async () => {
     main_1.Metis.client.editStatus('online', { name: `!help | ${main_1.Metis.client.guilds.size} guilds`, type: 0 });
+    main_1.Metis.client.createGuildCommand('1043755488157913189', {
+        name: 'Ping',
+        description: 'Pings the bot',
+        type: 1,
+        defaultPermission: true
+    });
+    main_1.Metis.client.createCommand({
+        type: 1,
+        name: 'ping',
+        description: 'Pings the bot'
+    });
     main_1.Metis.logger.success('Metis', `${main_1.Metis.client.shards.size} Shards Connected [ALL]`, 'Shard Manager');
 });

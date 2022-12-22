@@ -5,7 +5,19 @@ let logDate = new Date().toLocaleDateString();
 
 metis.client.on('ready', async () => { 
     metis.client.editStatus('online', {name: `!help | ${metis.client.guilds.size} guilds`, type: 0 })
-
+    
+    metis.client.createGuildCommand('1043755488157913189', {
+        name: 'Ping',
+        description: 'Pings the bot',
+        type: 1, 
+        defaultPermission: true
+    })
+    metis.client.createCommand({
+        type: 1, 
+        name: 'ping', 
+        description: 'Pings the bot'
+    })
+    
     metis.logger.success('Metis', `${metis.client.shards.size} Shards Connected [ALL]`, 'Shard Manager')
 })
     
