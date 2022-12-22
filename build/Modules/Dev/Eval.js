@@ -35,13 +35,17 @@ class Eval extends Command_1.Command {
                     color: metis.colors.blue,
                     timestamp: new Date(),
                 }
+            }).catch((err) => {
+                ctx.channel.createMessage({
+                    embed: {
+                        author: { name: 'Eval Results', icon_url: ctx.user.avatarURL },
+                        description: "```js\n" + err + "```",
+                        color: metis.colors.blue,
+                        timestamp: new Date(),
+                    }
+                });
             });
         }
-    }
-    //@ts-ignore
-    catch(err) {
-        //@ts-ignore
-        ctx.channel.createMessage(`\`ERROR\` \`\`\`xl\n${code}\n\`\`\``);
     }
 }
 module.exports.cmd = Eval;

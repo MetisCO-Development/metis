@@ -20,6 +20,21 @@ class Ping extends Command {
     }
 
     async execute(metis: MetisInterface, ctx: ICommandContext) { 
+        const originalTime = Date.now()
+        return ctx.channel.createMessage({
+            embed: { 
+                description: `${metis.emotes.info} Ping?`, 
+                color: metis.colors.blue 
+            }
+        }).then(message => { 
+            return message.edit({
+                embed: {
+                    description: `${metis.emotes.info} Pong! \`${Date.now() - originalTime}ms\``, 
+                    color: metis.colors.blue
+                }
+            })
+        }).catch(() => undefined)
+       
         metis.client.on('interactionCreate', async (interaction: Interaction) => { 
             if(interaction instanceof CommandInteraction){
                 switch(interaction.data.name) { 
@@ -41,21 +56,6 @@ class Ping extends Command {
                        })
                 }
             }
-        })
-        
-        const originalTime = Date.now()
-        return ctx.channel.createMessage({
-            embed: { 
-                description: `${metis.emotes.info} Ping?`, 
-                color: metis.colors.blue 
-            }
-        }).then(message => { 
-            return message.edit({
-                embed: {
-                    description: `${metis.emotes.info} Pong! \`${Date.now() - originalTime}ms\``, 
-                    color: metis.colors.blue
-                }
-            })
         })
 
     }
