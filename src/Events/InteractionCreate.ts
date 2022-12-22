@@ -3,6 +3,7 @@ import {Metis as metis} from "../main";
 const config = require('../../config.json'); 
 
 metis.client.on('interactionCreate', async (interaction: Interaction) => { 
+    console.log(interaction)
     if(interaction instanceof CommandInteraction){
         switch(interaction.data.name) { 
             case "ping": 
