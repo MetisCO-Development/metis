@@ -12,12 +12,7 @@ metis.client.on('ready', async () => {
         type: 1, 
         defaultPermission: true
     })
-    metis.client.createCommand({
-        type: 1, 
-        name: 'ping', 
-        description: 'Pings the bot'
-    })
-    
+
     metis.logger.success('Metis', `${metis.client.shards.size} Shards Connected [ALL]`, 'Shard Manager')
 })
     

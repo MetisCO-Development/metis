@@ -12,10 +12,5 @@ main_1.Metis.client.on('ready', async () => {
         type: 1,
         defaultPermission: true
     });
-    main_1.Metis.client.createCommand({
-        type: 1,
-        name: 'ping',
-        description: 'Pings the bot'
-    });
     main_1.Metis.logger.success('Metis', `${main_1.Metis.client.shards.size} Shards Connected [ALL]`, 'Shard Manager');
 });
