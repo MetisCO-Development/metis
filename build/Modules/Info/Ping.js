@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Command_1 = require("../../Core/Structures/Command");
 const types_1 = require("../../types");
+const eris_1 = require("eris");
 class Ping extends Command_1.Command {
     constructor() {
         super({
@@ -24,16 +25,38 @@ class Ping extends Command_1.Command {
         return ctx.channel.createMessage({
             embed: {
                 description: `${metis.emotes.info} Ping?`,
-                color: metis.colors.default
+                color: metis.colors.blue
             }
         }).then(message => {
             return message.edit({
                 embed: {
                     description: `${metis.emotes.info} Pong! \`${Date.now() - originalTime}ms\``,
-                    color: metis.colors.default
+                    color: metis.colors.blue
                 }
             });
         }).catch(() => undefined);
+        metis.client.on('interactionCreate', async (interaction) => {
+            if (interaction instanceof eris_1.CommandInteraction) {
+                switch (interaction.data.name) {
+                    case "ping":
+                        let now = Date.now();
+                        let ping = {
+                            embeds: [{
+                                    color: metis.colors.blue,
+                                    description: `${metis.emotes.info} Ping?`
+                                }]
+                        };
+                        await interaction.createMessage(ping).then(() => {
+                            return interaction.editOriginalMessage({
+                                embeds: [{
+                                        color: metis.colors.blue,
+                                        description: `${metis.emotes.info} Ping! \`${Date.now() - now}ms\``
+                                    }]
+                            });
+                        });
+                }
+            }
+        });
     }
 }
 module.exports.cmd = Ping;

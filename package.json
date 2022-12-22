@@ -4,7 +4,8 @@
   "description": "",
   "main": "build/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "restart": "pm2 restart 0 && pm2 logs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "mongoose": "^6.7.5",
     "pm2": "^5.2.2",
     "signale": "^1.4.0",
+    "slash-commands-discord": "^1.0.1",
     "util": "^0.12.5"
   }
 }
