@@ -54,7 +54,7 @@ class metis {
             yellow: 16770560,
             green: 1441536,
             blue: 30719,
-            default: 3242182
+            default: config.defaultColor
         };
         this.staff = ['344954369285947392', '510638296041259008'];
         this.developer = ['344954369285947392'];

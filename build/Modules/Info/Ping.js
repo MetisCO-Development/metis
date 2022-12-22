@@ -20,17 +20,22 @@ class Ping extends Command_1.Command {
         });
     }
     async execute(metis, ctx) {
+        metis.client.createGuildCommand('1043755488157913189', {
+            name: 'Ping',
+            description: 'Pings the bot',
+            type: 1
+        });
         const originalTime = Date.now();
         return ctx.channel.createMessage({
             embed: {
                 description: `${metis.emotes.info} Ping?`,
-                color: metis.colors.default
+                color: metis.colors.blue
             }
         }).then(message => {
             return message.edit({
                 embed: {
                     description: `${metis.emotes.info} Pong! \`${Date.now() - originalTime}ms\``,
-                    color: metis.colors.default
+                    color: metis.colors.blue
                 }
             });
         }).catch(() => undefined);
